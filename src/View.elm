@@ -17,14 +17,6 @@ view : Model -> Html Msg
 view model =
     div []
         [ Snackbar.view Mdc "my-snackbar" model.mdc [] []
-        -- , Button.view Mdc
-        --     "go-button"
-        --     model.mdc
-        --     [ Button.raised
-        --     , Button.ripple
-        --     , Options.onClick RenderButtonClicked
-        --     ]
-        --     [ text "Go" ]
         , div []
             [ Button.view Mdc
                 "advanced-button"
@@ -52,10 +44,10 @@ viewAdvancedOptions model =
         model.mdc
         [ Slider.value model.params.theta
         , Slider.min 0
-        , Slider.max 359
+        , Slider.max 180
         , Slider.discrete
         , Slider.step 1.0
-        , Slider.onChange UserChangedTheta
+        , Slider.onInput UserChangedTheta
         ]
         []
     , span [] [ "Waviness: " ++ String.fromFloat model.params.waviness |> text ]
@@ -67,7 +59,7 @@ viewAdvancedOptions model =
         , Slider.max 30
         , Slider.discrete
         , Slider.step 1.0
-        , Slider.onChange UserChangedWaviness
+        , Slider.onInput UserChangedWaviness
         ]
         []
     , span [] [ "Line height: " ++ String.fromFloat model.params.line_height |> text ]
@@ -79,7 +71,7 @@ viewAdvancedOptions model =
         , Slider.max 30
         , Slider.discrete
         , Slider.step 1.0
-        , Slider.onChange UserChangedLineHeight
+        , Slider.onInput UserChangedLineHeight
         ]
         []
     , span [] [ "Stretch X: " ++ String.fromFloat model.params.sx |> text ]
@@ -91,7 +83,7 @@ viewAdvancedOptions model =
         , Slider.max 20
         , Slider.discrete
         , Slider.step 1
-        , Slider.onChange UserChangedStretchX
+        , Slider.onInput UserChangedStretchX
         ]
         []
     , span [] [ "Stretch Y: " ++ String.fromFloat model.params.sy |> text ]
@@ -103,7 +95,7 @@ viewAdvancedOptions model =
         , Slider.max 20
         , Slider.discrete
         , Slider.step 1
-        , Slider.onChange UserChangedStretchY
+        , Slider.onInput UserChangedStretchY
         ]
         []
     , span [] [ "Opacity: " ++ String.fromFloat model.params.opacity |> text ]
@@ -115,7 +107,7 @@ viewAdvancedOptions model =
         , Slider.max 255
         , Slider.discrete
         , Slider.step 1
-        , Slider.onChange UserChangedOpacity
+        , Slider.onInput UserChangedOpacity
         ]
         []
     , span [] [ "Contrast: " ++ String.fromFloat model.params.contrast |> text ]
@@ -123,11 +115,11 @@ viewAdvancedOptions model =
         "contrast-slider"
         model.mdc
         [ Slider.value model.params.contrast
-        , Slider.min -255
-        , Slider.max 255
+        , Slider.min -25
+        , Slider.max 25
         , Slider.discrete
         , Slider.step 1
-        , Slider.onChange UserChangedContrast
+        , Slider.onInput UserChangedContrast
         ]
         []
     ]
