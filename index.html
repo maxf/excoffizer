@@ -18,7 +18,7 @@
 
     <canvas id="output_canvas" width="400" height="400"></canvas>
     <input id="file_selector" type="file" accept="image/*;capture=camera"/>
-    <img id="source_image" src="monalisa.png" width="400" height="400"/>
+    <img id="source_image" src="dali.png" height="400"/>
     <canvas id="input_canvas" width="400" height="400"></canvas>
     <div id="elm"></div>
     <script>
@@ -50,7 +50,11 @@
      const renderNewImage = function() {
        let t = new Image();
        t.onload = function() {
-         inputCanvasCtx.drawImage(t,0,0,400,400);
+         inputCanvas.width = t.width;
+         inputCanvas.height = t.height;
+         outputCanvas.width = 400*t.width/t.height;
+         outputCanvas.height = 400;
+         inputCanvasCtx.drawImage(t,0,0);
          app.ports.newImageLoaded.send(true);
        };
        t.src = sourceImage.getAttribute('src');
