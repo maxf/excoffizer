@@ -1,0 +1,11 @@
+body {
+  padding: 2em;
+}
+
+#output_canvas {
+  border: 1px solid black;
+}
+
+#source_image, #input_canvas {
+  display: none;
+}

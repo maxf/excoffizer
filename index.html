@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Main</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css" rel="stylesheet">
+    <link href="material-components-web.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+    <link href="main.css" rel="stylesheet">
+  </head>
+  <body class="mdc-typography">
+    <script src="elm-mdc.js"></script>
+    <script src="elm.js"></script>
+
+    <script src="excoffizer.js"></script>
+    <script src="utils.js"></script>
+
+    <canvas id="output_canvas" width="400" height="400"></canvas>
+    <input id="file_selector" type="file" accept="image/*;capture=camera"/>
+    <img id="source_image" src="monalisa.png" width="400" height="400"/>
+    <canvas id="input_canvas" width="400" height="400"></canvas>
+    <div id="elm"></div>
+    <script>
+     const sourceImage = document.getElementById('source_image');
+     const fileSelector = document.getElementById('file_selector');
+     const inputCanvas = document.getElementById('input_canvas');
+     const outputCanvas = document.getElementById('output_canvas');
+     const inputCanvasCtx = inputCanvas.getContext('2d');
+     const app = Elm.Main.init({
+       node: document.getElementById('elm')
+     });
+
+     app.ports.render.subscribe(params => {
+       params.inputCanvas = inputCanvas;
+       params.outputCanvas = outputCanvas;
+       const success = Excoffizer.render(params);
+       app.ports.renderDone.send(success);
+     });
+
+     fileSelector.onchange = function(e) {
+       var fr = new FileReader();
+       fr.onload = function() {
+         sourceImage.setAttribute('src', fr.result);
+         renderNewImage();
+       }
+       fr.readAsDataURL(e.target.files[0]);
+     };
+
+     const renderNewImage = function() {
+       let t = new Image();
+       t.onload = function() {
+         inputCanvasCtx.drawImage(t,0,0,400,400);
+         app.ports.newImageLoaded.send(true);
+       };
+       t.src = sourceImage.getAttribute('src');
+     };
+
+
+     renderNewImage();
+
+    </script>
+
+  </body>
+</html>
