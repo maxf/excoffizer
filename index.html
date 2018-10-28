@@ -17,6 +17,13 @@
     <script src="utils.js"></script>
 
     <canvas id="output_canvas" width="400" height="400"></canvas>
+    <div>
+      <canvas class="preview" id="preview_canvas_0" width="80" height="80"></canvas>
+      <canvas class="preview" id="preview_canvas_1" width="80" height="80"></canvas>
+      <canvas class="preview" id="preview_canvas_2" width="80" height="80"></canvas>
+      <canvas class="preview" id="preview_canvas_3" width="80" height="80"></canvas>
+    </div>
+
     <input id="file_selector" type="file" accept="image/*;capture=camera"/>
     <img id="source_image" src="dali.png" height="400"/>
     <canvas id="input_canvas" width="400" height="400"></canvas>
@@ -26,7 +33,63 @@
      const fileSelector = document.getElementById('file_selector');
      const inputCanvas = document.getElementById('input_canvas');
      const outputCanvas = document.getElementById('output_canvas');
+     let previewCanvas = [];
+     for (let i=0; i<4; i++) {
+       previewCanvas[i] = document.getElementById('preview_canvas_'+i);
+     }
      const inputCanvasCtx = inputCanvas.getContext('2d');
+     const params = [
+       {
+         theta: 40,
+         waviness: 10,
+         line_height: 100,
+         sx: 1,
+         sy: 1,
+         tx: 0,
+         ty: 0,
+         opacity: 0,
+         contrast: 0,
+         outputCanvas: previewCanvas[0],
+         inputCanvas: inputCanvas
+       }, {
+         theta: 20,
+         waviness: 10,
+         line_height: 100,
+         sx: 1,
+         sy: 1,
+         tx: 0,
+         ty: 0,
+         opacity: 0,
+         contrast: 0,
+         outputCanvas: previewCanvas[1],
+         inputCanvas: inputCanvas
+       }, {
+         theta: 80,
+         waviness: 10,
+         line_height: 100,
+         sx: 1,
+         sy: 1,
+         tx: 0,
+         ty: 0,
+         opacity: 10,
+         contrast: 0,
+         outputCanvas: previewCanvas[2],
+         inputCanvas: inputCanvas
+       }, {
+         theta: 45,
+         waviness: 10,
+         line_height: 100,
+         sx: 1,
+         sy: 1,
+         tx: 0,
+         ty: 0,
+         opacity: 0,
+         contrast: 10,
+         outputCanvas: previewCanvas[3],
+         inputCanvas: inputCanvas
+       }
+     ];
+
      const app = Elm.Main.init({
        node: document.getElementById('elm')
      });
@@ -52,14 +115,24 @@
        t.onload = function() {
          inputCanvas.width = t.width;
          inputCanvas.height = t.height;
+         inputCanvasCtx.drawImage(t,0,0);
+
+         /* for (i=0; i<4; i++) {
+          *   previewCanvas[i].width = 80*t.width/t.height;
+          *   previewCanvas[i].height = 80;
+          *   Excoffizer.render(params[i]);
+          * } */
+
+         previewCanvas[0].width = 80*t.width/t.height;
+         previewCanvas[0].height = 80;
+         Excoffizer.render(params[0]);
+
          outputCanvas.width = 400*t.width/t.height;
          outputCanvas.height = 400;
-         inputCanvasCtx.drawImage(t,0,0);
          app.ports.newImageLoaded.send(true);
        };
        t.src = sourceImage.getAttribute('src');
      };
-
 
      renderNewImage();
 

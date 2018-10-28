@@ -29,5 +29,4 @@ type alias Params =
     , line_height : Float
     , opacity : Float
     , contrast: Float
-    , output_height : Int
     }

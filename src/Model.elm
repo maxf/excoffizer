@@ -22,7 +22,6 @@ initialParams =
     , line_height = 5.0
     , opacity = 30.0
     , contrast = 0
-    , output_height = 400
     }
 
 

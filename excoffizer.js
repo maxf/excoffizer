@@ -4,7 +4,6 @@ Excoffizer = {
 
   render: function(params) {
     'use strict';
-
     this._params = params;
     this.inputPixmap = new Pixmap(params.inputCanvas);
     this._wiggleFrequency = this._params.waviness/100.0;
@@ -87,7 +86,6 @@ Excoffizer = {
 
     // ready to draw
     outputCtx.fillStyle='black';
-
 
     // boundaries of the image in sine space
     corner1 = this._P2S(0,0);
