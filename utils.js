@@ -26,6 +26,14 @@ const Pixmap = function(canvas) {
 
 //################################################################################
 
+Pixmap.prototype.colorAt = function(x,y) {
+  var index = 4*(x + this.width*y);
+  return new Color( this._pixels[index],
+                     this._pixels[index+1],
+                     this._pixels[index+2],
+                     this._pixels[index+3] );
+};
+
 Pixmap.prototype.colorAverageAt = function( x, y, radius, contrast ) {
   var index;
   var resultR=0.0, resultG=0.0, resultB=0.0;
