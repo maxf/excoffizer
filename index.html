@@ -16,18 +16,23 @@
     <script src="excoffizer.js"></script>
     <script src="utils.js"></script>
 
-    <canvas id="output_canvas" width="400" height="400"></canvas>
-    <div>
-      <canvas class="preview" id="preview_canvas_0" width="80" height="80"></canvas>
-      <canvas class="preview" id="preview_canvas_1" width="80" height="80"></canvas>
-      <canvas class="preview" id="preview_canvas_2" width="80" height="80"></canvas>
-      <canvas class="preview" id="preview_canvas_3" width="80" height="80"></canvas>
+    <div class="canvases">
+      <canvas id="output_canvas" width="500" height="500"></canvas>
+      <div id="previews">
+        <canvas class="preview" id="preview_canvas_0" width="150" height="150"></canvas>
+        <canvas class="preview" id="preview_canvas_1" width="150" height="150"></canvas>
+        <canvas class="preview" id="preview_canvas_2" width="150" height="150"></canvas>
+        <canvas class="preview" id="preview_canvas_3" width="150" height="150"></canvas>
+      </div>
     </div>
 
-    <input id="file_selector" type="file" accept="image/*;capture=camera"/>
-    <img id="source_image" src="dali.png" height="400"/>
-    <canvas id="input_canvas" width="400" height="400"></canvas>
-    <div id="elm"></div>
+    <div class="controls">
+      <input id="file_selector" type="file" accept="image/*;capture=camera"/>
+      <img id="source_image" src="dali.png" height="500"/>
+      <canvas id="input_canvas" width="500" height="500"></canvas>
+      <div id="elm"></div>
+    </div>
+
     <script>
      const sourceImage = document.getElementById('source_image');
      const fileSelector = document.getElementById('file_selector');
@@ -40,14 +45,14 @@
      const inputCanvasCtx = inputCanvas.getContext('2d');
      const params = [
        {
-         theta: 40,
+         theta: 30,
          waviness: 10,
-         line_height: 100,
-         sx: 1,
-         sy: 1,
+         line_height: 5,
+         sx: 10,
+         sy: 10,
          tx: 0,
          ty: 0,
-         opacity: 0,
+         opacity: 30,
          contrast: 0,
          outputCanvas: previewCanvas[0],
          inputCanvas: inputCanvas
@@ -64,8 +69,8 @@
          outputCanvas: previewCanvas[1],
          inputCanvas: inputCanvas
        }, {
-         theta: 80,
-         waviness: 10,
+         theta: 0,
+         waviness: 0,
          line_height: 100,
          sx: 1,
          sy: 1,
@@ -117,18 +122,14 @@
          inputCanvas.height = t.height;
          inputCanvasCtx.drawImage(t,0,0);
 
-         /* for (i=0; i<4; i++) {
-          *   previewCanvas[i].width = 80*t.width/t.height;
-          *   previewCanvas[i].height = 80;
-          *   Excoffizer.render(params[i]);
-          * } */
+         for (i=0; i<4; i++) {
+           previewCanvas[i].width = 150*t.width/t.height;
+           previewCanvas[i].height = 150;
+           Excoffizer.render(params[i]);
+         }
 
-         previewCanvas[0].width = 80*t.width/t.height;
-         previewCanvas[0].height = 80;
-         Excoffizer.render(params[0]);
-
-         outputCanvas.width = 400*t.width/t.height;
-         outputCanvas.height = 400;
+         outputCanvas.width = 500*t.width/t.height;
+         outputCanvas.height = 500;
          app.ports.newImageLoaded.send(true);
        };
        t.src = sourceImage.getAttribute('src');

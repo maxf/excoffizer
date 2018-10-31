@@ -6,6 +6,24 @@ body {
   border: 1px solid black;
 }
 
+
+#output_canvas {
+  float: left;
+}
+
+#previews {
+  float: right;
+}
+
+canvas.preview {
+  display: block;
+  margin: 5px;
+}
+
+.controls {
+  clear: both;
+}
+
 #source_image, #input_canvas {
   display: none;
 }
