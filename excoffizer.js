@@ -64,8 +64,8 @@ Excoffizer = {
         outputHeight = outputCanvas.height,
         opacity      = this._params.opacity,
         lineHeight   = this._params.line_height,
-        corner1, corner2, corner3, corner4, minX, minY, maxX, maxY, stepx, stepy, x, y,
-        imageP, rx, ry, imageP2, rx2, ry2, radius, radius2, sidePoints, sidePoints2, zoom;
+        corner1, corner2, corner3, corner4, minX, minY, maxX, maxY, x, y,
+        imageP, rx, ry, imageP2, rx2, ry2, radius, radius2, sidePoints, sidePoints2;
 
 
     // reset values
@@ -99,8 +99,9 @@ Excoffizer = {
 
     // from the min/max bounding box, we know which sines to draw
 
-    stepx=2;
-    stepy=lineHeight;
+    const zoom = outputWidth/inputWidth;
+    const stepx = 2;
+    const stepy = lineHeight; /* FIXME: scale dependent */
 
     for (y=minY-this._wiggleAmplitude ;y<maxY+this._wiggleAmplitude;y+=stepy) {
       for (x=minX;x<maxX;x+=stepx) {
@@ -123,7 +124,6 @@ Excoffizer = {
           sidePoints2=this._sidePoints(rx2,ry2,rx,ry,radius2);
 
           // scale everything to output resolution
-          zoom=outputWidth/inputWidth;
           sidePoints[0]*=zoom;
           sidePoints[1]*=zoom;
           sidePoints[2]*=zoom;
