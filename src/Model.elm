@@ -19,7 +19,7 @@ initialParams =
     , sy = 10.0
     , tx = 0.0
     , ty = 0.0
-    , line_height = 5.0
+    , line_height = 20.0
     , opacity = 30.0
     , contrast = 0
     }

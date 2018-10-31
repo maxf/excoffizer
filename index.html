@@ -38,7 +38,7 @@
      const fileSelector = document.getElementById('file_selector');
      const inputCanvas = document.getElementById('input_canvas');
      const outputCanvas = document.getElementById('output_canvas');
-     let previewCanvas = [];
+     const previewCanvas = [];
      for (let i=0; i<4; i++) {
        previewCanvas[i] = document.getElementById('preview_canvas_'+i);
      }
@@ -47,7 +47,7 @@
        {
          theta: 30,
          waviness: 10,
-         line_height: 5,
+         line_height: 20,
          sx: 10,
          sy: 10,
          tx: 0,
@@ -107,7 +107,7 @@
      });
 
      fileSelector.onchange = function(e) {
-       var fr = new FileReader();
+       const fr = new FileReader();
        fr.onload = function() {
          sourceImage.setAttribute('src', fr.result);
          renderNewImage();
@@ -116,13 +116,13 @@
      };
 
      const renderNewImage = function() {
-       let t = new Image();
+       const t = new Image();
        t.onload = function() {
          inputCanvas.width = t.width;
          inputCanvas.height = t.height;
          inputCanvasCtx.drawImage(t,0,0);
 
-         for (i=0; i<4; i++) {
+         for (let i=0; i<4; i++) {
            previewCanvas[i].width = 150*t.width/t.height;
            previewCanvas[i].height = 150;
            Excoffizer.render(params[i]);

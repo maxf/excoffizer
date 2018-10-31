@@ -56,31 +56,26 @@ Excoffizer = {
 
   _excoffize: function() {
     'use strict';
-    var outputCanvas = this._params.outputCanvas,
-        outputCtx    = outputCanvas.getContext('2d'),
-        inputWidth   = this.inputPixmap.width,
-        inputHeight  = this.inputPixmap.height,
-        outputWidth  = outputCanvas.width,
-        outputHeight = outputCanvas.height,
-        opacity      = this._params.opacity,
-        lineHeight   = this._params.line_height,
-        corner1, corner2, corner3, corner4, minX, minY, maxX, maxY, x, y,
-        imageP, rx, ry, imageP2, rx2, ry2, radius, radius2, sidePoints, sidePoints2;
+    const outputCanvas = this._params.outputCanvas;
+    const outputWidth = outputCanvas.width;
+    const outputHeight = outputCanvas.height;
+    const outputCtx = outputCanvas.getContext('2d');
+
+    const inputWidth = this.inputPixmap.width;
+    const inputHeight = this.inputPixmap.height;
 
 
-    // reset values
+    // clear output canvas
     outputCtx.shadowColor='black';
     outputCtx.shadowOffsetX=0;
     outputCtx.shadowOffsetY=0;
     outputCtx.shadowBlur=0;
-
-
-    // clear output canvas
     outputCtx.fillStyle = 'white';
     outputCtx.fillRect(0,0,outputWidth,outputHeight);
 
+
     // and add in the initial picture with transparency
-    outputCtx.globalAlpha = opacity/256;
+    outputCtx.globalAlpha = this._params.opacity / 256;
     outputCtx.drawImage(this.inputPixmap.canvas,0,0,outputWidth,outputHeight);
     outputCtx.globalAlpha = 1;
 
@@ -88,23 +83,26 @@ Excoffizer = {
     outputCtx.fillStyle='black';
 
     // boundaries of the image in sine space
-    corner1 = this._P2S(0,0);
-    corner2 = this._P2S(inputWidth,0);
-    corner3 = this._P2S(inputWidth,inputHeight);
-    corner4 = this._P2S(0,inputHeight);
-    minX=Math.min(corner1[0],corner2[0],corner3[0],corner4[0]);
-    minY=Math.min(corner1[1],corner2[1],corner3[1],corner4[1]);
-    maxX=Math.max(corner1[0],corner2[0],corner3[0],corner4[0]);
-    maxY=Math.max(corner1[1],corner2[1],corner3[1],corner4[1]);
+    const corner1 = this._P2S(0,0);
+    const corner2 = this._P2S(inputWidth,0);
+    const corner3 = this._P2S(inputWidth,inputHeight);
+    const corner4 = this._P2S(0,inputHeight);
+    const minX = Math.min(corner1[0],corner2[0],corner3[0],corner4[0]);
+    const minY = Math.min(corner1[1],corner2[1],corner3[1],corner4[1]);
+    const maxX = Math.max(corner1[0],corner2[0],corner3[0],corner4[0]);
+    const maxY = Math.max(corner1[1],corner2[1],corner3[1],corner4[1]);
 
     // from the min/max bounding box, we know which sines to draw
 
     const zoom = outputWidth/inputWidth;
     const stepx = 2;
-    const stepy = lineHeight; /* FIXME: scale dependent */
+    const stepy = this._params.line_height;
 
-    for (y=minY-this._wiggleAmplitude ;y<maxY+this._wiggleAmplitude;y+=stepy) {
-      for (x=minX;x<maxX;x+=stepx) {
+    // declare these outside the loop for speed
+    let imageP, rx, ry, imageP2, rx2, ry2, radius, radius2, sidePoints, sidePoints2;
+
+    for (let y = minY-this._wiggleAmplitude; y < maxY+this._wiggleAmplitude; y += stepy) {
+      for (let x = minX; x < maxX; x += stepx) {
         imageP=this._S2P(x,y+this._wiggle(x));
         rx=imageP[0];
         ry=imageP[1];
