@@ -2,7 +2,7 @@ module Update exposing (update)
 
 import Material
 import Material.Snackbar as Snackbar
-import Model exposing (Model, withTheta, withWaviness, withLineHeight, withStretchX, withStretchY, withOpacity, withContrast)
+import Model exposing (Model, withContrast, withLineHeight, withOpacity, withStretchX, withStretchY, withTheta, withWaviness, withParams)
 import Ports exposing (render)
 import Types exposing (Msg(..))
 
@@ -19,6 +19,7 @@ update msg model =
         RenderFinished success ->
             if success then
                 ( model, Cmd.none )
+
             else
                 let
                     contents =
@@ -80,6 +81,13 @@ update msg model =
 
         NewImageLoaded success ->
             ( model, render model.params )
+
+        UserClickedPreview params ->
+            let
+                newModel =
+                    model |> withParams params
+            in
+            ( newModel, render newModel.params )
 
         Mdc msg_ ->
             Material.update Mdc msg_ model

@@ -4,7 +4,7 @@ import Browser
 import Json.Encode
 import Material
 import Model exposing (Model, initialModel)
-import Ports exposing (newImageLoaded, render, renderDone)
+import Ports exposing (newImageLoaded, render, renderDone, previewSelected)
 import Types exposing (Msg(..))
 import Update exposing (update)
 import View exposing (view)
@@ -33,4 +33,5 @@ subscriptions model =
         [ Material.subscriptions Mdc model
         , renderDone RenderFinished
         , newImageLoaded NewImageLoaded
+        , previewSelected UserClickedPreview
         ]

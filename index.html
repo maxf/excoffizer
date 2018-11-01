@@ -43,7 +43,7 @@
        previewCanvas[i] = document.getElementById('preview_canvas_'+i);
      }
      const inputCanvasCtx = inputCanvas.getContext('2d');
-     const params = [
+     const previewParams = [
        {
          theta: 30,
          waviness: 10,
@@ -102,7 +102,8 @@
      app.ports.render.subscribe(params => {
        params.inputCanvas = inputCanvas;
        params.outputCanvas = outputCanvas;
-       const success = Excoffizer.render(params);
+
+       const success = (new Excoffizer(params)).render();
        app.ports.renderDone.send(success);
      });
 
@@ -121,11 +122,13 @@
          inputCanvas.width = t.width;
          inputCanvas.height = t.height;
          inputCanvasCtx.drawImage(t,0,0);
-
+         console.log(0, previewParams[0])
          for (let i=0; i<4; i++) {
            previewCanvas[i].width = 150*t.width/t.height;
            previewCanvas[i].height = 150;
-           Excoffizer.render(params[i]);
+           previewCanvas[i].onclick =
+             () => { console.log('1', previewParams[i]); app.ports.previewSelected.send(previewParams[i])};
+           new Excoffizer(previewParams[i]).render();
          }
 
          outputCanvas.width = 500*t.width/t.height;

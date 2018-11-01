@@ -17,6 +17,7 @@ type Msg
     | UserChangedOpacity Float
     | UserChangedContrast Float
     | NewImageLoaded Bool
+    | UserClickedPreview Json.Encode.Value
 
 
 type alias Params =
