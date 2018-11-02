@@ -1,4 +1,5 @@
 const Excoffizer = function(params) {
+  console.log(params);
   this._inputCanvas = params.inputCanvas;
   this._outputCanvas = params.outputCanvas;
   this._sx = params.sx / 10;

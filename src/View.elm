@@ -67,7 +67,7 @@ viewAdvancedOptions model =
         "line-height-slider"
         model.mdc
         [ Slider.value model.params.line_height
-        , Slider.min 20
+        , Slider.min 5
         , Slider.max 100
         , Slider.discrete
         , Slider.step 1.0

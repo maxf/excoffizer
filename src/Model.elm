@@ -124,4 +124,4 @@ withParams portParams model =
             model
 
         Ok params ->
-            { model | params = params |> Debug.log ">>" }
+            { model | params = params }

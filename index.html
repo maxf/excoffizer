@@ -122,12 +122,11 @@
          inputCanvas.width = t.width;
          inputCanvas.height = t.height;
          inputCanvasCtx.drawImage(t,0,0);
-         console.log(0, previewParams[0])
          for (let i=0; i<4; i++) {
            previewCanvas[i].width = 150*t.width/t.height;
            previewCanvas[i].height = 150;
            previewCanvas[i].onclick =
-             () => { console.log('1', previewParams[i]); app.ports.previewSelected.send(previewParams[i])};
+             () => app.ports.previewSelected.send(previewParams[i]);
            new Excoffizer(previewParams[i]).render();
          }
 
