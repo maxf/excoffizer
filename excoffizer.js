@@ -97,6 +97,7 @@ class Excoffizer {
     const outputWidth  = 500;
     const outputHeight = 500 * inputHeight / inputWidth;
     const lineHeight = this.#params.lineHeight;
+    const thickness = this.#params.thickness;
     const margin = this.#params.margin;
     let outputSvg = `
     <svg id="svg" width="${outputWidth}" height="${outputHeight}" viewBox="${-margin} ${-margin} ${outputWidth+2*margin} ${outputHeight+2*margin}">
@@ -107,6 +108,7 @@ class Excoffizer {
         - theta: ${this.#params.theta}
         - blur: ${this.#blur}
         - line height: ${this.#params.lineHeight}
+        - radius factor: ${this.#params.thickness}
         - margin: ${this.#params.margin}
         - sx: ${this.#params.sx}
         - sy: ${this.#params.sy}
@@ -147,7 +149,8 @@ class Excoffizer {
 
           const imageLevel = this.#inputPixmap.brightnessAverageAt(Math.floor(p.x), Math.floor(p.y), this.#blur)
 
-          const radius = lineHeight * ( 1 - imageLevel / 255) / 2 - 0.05;
+          // const radius = lineHeight * ( 1 - imageLevel / 255) / 2 - 0.05;
+          const radius = thickness * ( 1 - imageLevel / 255) / 2 - 0.05;
 
           const zoom=outputWidth/inputWidth;
 

@@ -4,6 +4,7 @@ var defaults = {
   theta: 43,
   waviness: 1,
   lineHeight: 10,
+  thickness: 10,
   sx: 0.8,
   sy: 1,
   tx: 0,
@@ -20,7 +21,9 @@ id("value-theta").innerHTML = defaults.theta;
 id("waviness").value = defaults.waviness;
 id("value-waviness").innerHTML = defaults.waviness;
 id("line-height").value = defaults.lineHeight;
-id("value-line-height").innerHTML = defaults.lineHeight;
+id("value-line-height").innerHTML = defaults.thickness;
+id("thickness").value = defaults.lineHeight;
+id("value-thickness").innerHTML = defaults.thickness;
 id("sx").value = defaults.sx;
 id("value-sx").innerHTML = defaults.sx;
 id("sy").value = defaults.sy;
@@ -50,6 +53,7 @@ function go()
       theta: parseInt(id("theta").value),
       waviness: parseFloat(id("waviness").value),
       lineHeight: parseFloat(id("line-height").value),
+      thickness: parseFloat(id("thickness").value),
       sx: parseFloat(id("sx").value),
       sy: parseFloat(id("sy").value),
       tx: defaults.tx,
@@ -119,6 +123,11 @@ id("waviness").addEventListener("change", event => {
 
 id("line-height").addEventListener("change", event => {
   id("value-line-height").innerHTML = event.target.value;
+  go();
+});
+
+id("thickness").addEventListener("change", event => {
+  id("value-thickness").innerHTML = event.target.value;
   go();
 });
 
