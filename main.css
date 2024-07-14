@@ -1,8 +1,30 @@
-body { font-size: 80%; font-family: Trebuchet MS,Tahoma,Verdana,Arial,sans-serif; }
+body {
+    font-size: 80%;
+    font-family: Trebuchet MS,Tahoma,Verdana,Arial,sans-serif;
+}
 .buttons { margin-top: 1em; text-align: center }
 label { display: block; margin: .5em 0 .2em 0; text-align: left }
 img { border: 1px solid gray; }
 input { width: 100% }
 h1 > img { border: none; padding-right: .2em }
-#panel { width: 250px; float: left }
-#output-canvas { float: right; border: 1px solid black }
+
+main {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#panel {
+    background: #eee;
+    margin-right: 10px;
+    width: 400px;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+#output-canvas {
+    border: 1px solid black
+}
+
+#original-image {
+    margin-top: 100px;
+}

@@ -5,7 +5,8 @@
     <link type="text/css" href="main.css" rel="stylesheet"/>
   </head>
   <body>
-    <div id="main">
+
+    <main>
       <div id="panel">
         <h1>Excoffizer</h1>
         <input id="file_selector" type="file" accept="image/*;capture=camera" class="image_selector"/>
@@ -38,9 +39,9 @@
       </div>
 
       <div id="output-canvas" width="500" height="500"></div>
-    </div>
+    </main>
 
-    <div style="clear: both">
+    <div id="original-image">
       <canvas style="display:none" id="input_canvas" width="10" height="10"></canvas>
       <img id="input_thumb" height="800px" alt="Select an image file below" src=""/> <!-- setting display: none messes output. TODO: find out why -->
     </div>

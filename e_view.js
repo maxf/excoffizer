@@ -9,7 +9,7 @@ var defaults = {
   tx: 0,
   ty: 0,
   margin: 10,
-  image_file: "tbl.png",
+  image_file: "pictures/tbl.png",
   blur: 1,
 };
 
