@@ -10,7 +10,6 @@ class Excoffizer {
     this.#inputPixmap = new Pixmap(params.inputCanvas);
     this.#wiggleFrequency = this.#params.waviness/100.0;
     this.#wiggleAmplitude = this.#wiggleFrequency===0 ? 0 : 0.5/this.#wiggleFrequency;
-    this.#params.theta *= Math.PI/180; // degrees to radians
     this.#blur = params.blur;
   }
 

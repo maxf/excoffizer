@@ -1,19 +1,29 @@
 /* jslint devel: true, browser: true, maxerr: 50, indent: 2 */
 
-var defaults = {
-  theta: 43,
+const defaults = {
+  theta: 2,
   waviness: 1,
   lineHeight: 10,
   thickness: 10,
   sx: 0.8,
   sy: 1,
   tx: 0,
-  ty: 0,
+    ty: 0,
   margin: 10,
   density: 5,
   image_file: "pictures/tbl.png",
   blur: 1,
 };
+
+// Look for params in the query string that possibly
+// will override defaults
+const queryString = window.location.search;
+if (queryString.length > 0) {
+  const urlParams = new URLSearchParams(queryString);
+  for (const [key, value] of urlParams) {
+    defaults[key] = value;
+  }
+}
 
 const id = id => document.getElementById(id);
 
@@ -50,6 +60,7 @@ var params;
 function go()
 {
   "use strict";
+
   // Put the pixels of the original <img> into the <canvas>
   var t = new Image();
   t.src = id("input_thumb").getAttribute("src");
@@ -61,7 +72,7 @@ function go()
     id("input_canvas").getContext('2d', { willReadFrequently: true }).drawImage(t,0,0, thumbWidth, thumbHeight);
     params = {
       inputCanvas: id('input_canvas'),
-      theta: parseInt(id("theta").value),
+      theta: parseFloat(id("theta").value),
       waviness: parseFloat(id("waviness").value),
       lineHeight: parseFloat(id("line-height").value),
       thickness: parseFloat(id("thickness").value),
@@ -83,6 +94,7 @@ function go()
       params.image_file = id('file_selector').files[0].name;
     }
     const qsp = new URLSearchParams(params);
+
     history.pushState(null, null, `?${qsp}`);
   };
 }
