@@ -64,6 +64,14 @@ function go()
     const excoffizator = new Excoffizer(params);
     const svg = excoffizator.excoffize(params);
     document.getElementById('output-canvas').innerHTML = svg;
+
+    // Set the query string prarameters to the parameters selected
+    delete params.inputCanvas;
+    if (id('file_selector').files.length > 0) {
+      params.image_file = id('file_selector').files[0].name;
+    }
+    const qsp = new URLSearchParams(params);
+    history.pushState(null, null, `?${qsp}`);
   };
 }
 
