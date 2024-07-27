@@ -99,6 +99,7 @@ class Excoffizer {
     const lineHeight = this.#params.lineHeight;
     const thickness = this.#params.thickness;
     const margin = this.#params.margin;
+    const density = this.#params.density;
     let outputSvg = `
     <svg id="svg" width="${outputWidth}" height="${outputHeight}" viewBox="${-margin} ${-margin} ${outputWidth+2*margin} ${outputHeight+2*margin}">
       <desc>
@@ -108,7 +109,7 @@ class Excoffizer {
         - theta: ${this.#params.theta}
         - blur: ${this.#blur}
         - line height: ${this.#params.lineHeight}
-        - radius factor: ${this.#params.thickness}
+        - thickness: ${this.#params.thickness}
         - margin: ${this.#params.margin}
         - sx: ${this.#params.sx}
         - sy: ${this.#params.sy}
@@ -130,7 +131,7 @@ class Excoffizer {
 
     // from the min/max bounding box, we know which sines to draw
 
-    let stepx=3;
+    let stepx=density;
     const stepy=lineHeight;
 
         //for (let y = minY - this.#wiggleAmplitude; y < maxY + this.#wiggleAmplitude; y += stepy) {
@@ -173,8 +174,7 @@ class Excoffizer {
           }
 
           // how far away should the next point be?
-          stepx = Math.max(1, 4 - radius);
-
+          stepx = Math.max(1.5, density - radius);
         }
       }
       outputSvg += this.#poly2pathSmooth(hatchPoints2);

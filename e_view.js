@@ -10,6 +10,7 @@ var defaults = {
   tx: 0,
   ty: 0,
   margin: 10,
+  density: 5,
   image_file: "pictures/tbl.png",
   blur: 1,
 };
@@ -18,18 +19,28 @@ const id = id => document.getElementById(id);
 
 id("theta").value = defaults.theta;
 id("value-theta").innerHTML = defaults.theta;
+
 id("waviness").value = defaults.waviness;
 id("value-waviness").innerHTML = defaults.waviness;
+
 id("line-height").value = defaults.lineHeight;
-id("value-line-height").innerHTML = defaults.thickness;
-id("thickness").value = defaults.lineHeight;
+id("value-line-height").innerHTML = defaults.lineHeight;
+
+id("thickness").value = defaults.thickness;
 id("value-thickness").innerHTML = defaults.thickness;
+
+id("density").value = defaults.density;
+id("value-density").innerHTML = defaults.density;
+
 id("sx").value = defaults.sx;
 id("value-sx").innerHTML = defaults.sx;
+
 id("sy").value = defaults.sy;
 id("value-sy").innerHTML = defaults.sy;
+
 id("margin").value = defaults.margin;
 id("value-margin").innerHTML = defaults.margin;
+
 id("blur").value = defaults.blur;
 id("value-blur").innerHTML = defaults.blur;
 
@@ -54,6 +65,7 @@ function go()
       waviness: parseFloat(id("waviness").value),
       lineHeight: parseFloat(id("line-height").value),
       thickness: parseFloat(id("thickness").value),
+      density: parseFloat(id("density").value),
       sx: parseFloat(id("sx").value),
       sy: parseFloat(id("sy").value),
       tx: defaults.tx,
@@ -136,6 +148,11 @@ id("line-height").addEventListener("change", event => {
 
 id("thickness").addEventListener("change", event => {
   id("value-thickness").innerHTML = event.target.value;
+  go();
+});
+
+id("density").addEventListener("change", event => {
+  id("value-density").innerHTML = event.target.value;
   go();
 });
 
