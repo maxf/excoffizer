@@ -158,6 +158,8 @@ class Excoffizer {
             p.x *= zoom;
             p.y *= zoom;
             hatchPoints2.push(p);
+            // how far away should the next point be?
+            stepx = 1.5;
           } else {
             const [ sidePoint1, sidePoint2 ] = this.#sidePoints(p, p2, radius);
             sidePoint1.x *= zoom;
@@ -170,10 +172,12 @@ class Excoffizer {
             } else {
               hatchPoints2.push(sidePoint1);
             }
+
+            // how far away should the next point be?
+            stepx = Math.max(1.5, density - radius);
+
           }
 
-          // how far away should the next point be?
-          stepx = Math.max(1.5, density - radius);
         }
       }
       outputSvg += this.#poly2pathSmooth(hatchPoints2);
