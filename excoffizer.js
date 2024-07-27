@@ -109,6 +109,7 @@ class Excoffizer {
         - blur: ${this.#blur}
         - line height: ${this.#params.lineHeight}
         - thickness: ${this.#params.thickness}
+        - density: ${this.#params.density}
         - margin: ${this.#params.margin}
         - sx: ${this.#params.sx}
         - sy: ${this.#params.sy}
